@@ -150,6 +150,7 @@ String.prototype.capitalize = function() {
 
 // Pulls adjective out of array using random number sent from generator
 function getAdj(x){
+  'use strict';
   switch(x) {
     case "dark":
       var dark = ["dark","morbid", "scary", "spooky", "gothic", "deviant", "creepy", "sadistic", "black", "dangerous", "dejected", "haunted",
@@ -214,6 +215,7 @@ function getAdj(x){
 
 // Pulls noun out of array using random number sent from generator
 function getNoun(y) {
+  'use strict';
   switch(y) {
     case "animals":
       var animals = ["flamingo", "hedgehog", "owl", "elephant", "pussycat", "alligator", "dachsund", "poodle", "beagle", "crocodile", "kangaroo",
@@ -287,6 +289,7 @@ var nouns = ["animals", "everyday", "fantasy", "gross", "horror", "jewelry", "pl
 
 // Generates random numbers for getAdj and getNoun functions and returns a new pizza name
 function generator(adj, noun) {
+  'use strict';
   var adjectives = getAdj(adj);
   var nouns = getNoun(noun);
   var randomAdjective = parseInt(Math.random() * adjectives.length);
@@ -297,6 +300,7 @@ function generator(adj, noun) {
 
 // Chooses random adjective and random noun
 function randomName() {
+  'use strict';
   var randomNumberAdj = parseInt(Math.random() * adjectives.length);
   var randomNumberNoun = parseInt(Math.random() * nouns.length);
   return generator(adjectives[randomNumberAdj], nouns[randomNumberNoun]);
@@ -304,36 +308,43 @@ function randomName() {
 
 // These functions return a string of a random ingredient from each respective category of ingredients.
 var selectRandomMeat = function() {
+  'use strict';
   var randomMeat = pizzaIngredients.meats[Math.floor((Math.random() * pizzaIngredients.meats.length))];
   return randomMeat;
 };
 
 var selectRandomNonMeat = function() {
+  'use strict';
   var randomNonMeat = pizzaIngredients.nonMeats[Math.floor((Math.random() * pizzaIngredients.nonMeats.length))];
   return randomNonMeat;
 };
 
 var selectRandomCheese = function() {
+  'use strict';
   var randomCheese = pizzaIngredients.cheeses[Math.floor((Math.random() * pizzaIngredients.cheeses.length))];
   return randomCheese;
 };
 
 var selectRandomSauce = function() {
+  'use strict';
   var randomSauce = pizzaIngredients.sauces[Math.floor((Math.random() * pizzaIngredients.sauces.length))];
   return randomSauce;
 };
 
 var selectRandomCrust = function() {
+  'use strict';
   var randomCrust = pizzaIngredients.crusts[Math.floor((Math.random() * pizzaIngredients.crusts.length))];
   return randomCrust;
 };
 
 var ingredientItemizer = function(string) {
+  'use strict';
   return "<li>" + string + "</li>";
 };
 
 // Returns a string with random pizza ingredients nested inside <li> tags
 var makeRandomPizza = function() {
+  'use strict';
   var pizza = "";
 
   var numberOfMeats = Math.floor((Math.random() * 4));
@@ -362,6 +373,7 @@ var makeRandomPizza = function() {
 
 // returns a DOM element for each pizza
 var pizzaElementGenerator = function(i) {
+  'use strict';
   var pizzaContainer,             // contains pizza title, image and list of ingredients
       pizzaImageContainer,        // contains the pizza image
       pizzaImage,                 // the pizza image itself
@@ -401,6 +413,7 @@ var pizzaElementGenerator = function(i) {
 
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
 var resizePizzas = function(size) {
+  'use strict';
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
@@ -424,6 +437,7 @@ var resizePizzas = function(size) {
   changeSliderLabel(size);
 
   function changePizzaSizes(size) {
+    'use strict';
     var newWidth;
 
     switch(size) {
@@ -441,9 +455,10 @@ var resizePizzas = function(size) {
     }
 
     var randomPizzas = document.getElementsByClassName("randomPizzaContainer");
+    var randomPizzasLength = randomPizzas.length;
     var i;
 
-    for (i = 0; i < randomPizzas.length; i++) {
+    for (i = 0; i < randomPizzasLength; i++) {
       randomPizzas[i].style.width = newWidth + '%';
     }
   }
@@ -459,6 +474,7 @@ var resizePizzas = function(size) {
 
 // Create and append all of the pizzas when the page loads
 function appendPizzas() {
+  'use strict';
   window.performance.mark("mark_start_generating"); // collect timing data
 
   // This for-loop actually creates and appends all of the pizzas when the page loads
@@ -477,7 +493,9 @@ function appendPizzas() {
 }
 
 // Logs the average amount of time per 10 frames needed to move the sliding background pizzas on scroll.
-function logAverageFrame(times) {   // times is the array of User Timing measurements from updatePositions()
+// times is the array of User Timing measurements from updatePositions()
+function logAverageFrame(times) {
+  'use strict';
   var numberOfEntries = times.length;
   var sum = 0;
   var i;
@@ -493,6 +511,7 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 
 // Make sliding pizza prototype
 function makeSlidingPizza() {
+  'use strict';
   var pizzaElement = document.createElement('img');
   pizzaElement.className = 'mover';
   pizzaElement.src = "images/pizza.png";
@@ -503,6 +522,7 @@ function makeSlidingPizza() {
 
 // Generate sliding pizzas
 function makeSlidingPizzas(num) {
+  'use strict';
   // make 200 pizzas if num is undefined
   var num = num ? num : 200;
 
@@ -527,15 +547,17 @@ var frame = 0;
 
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
+  'use strict';
   frame++;
   window.performance.mark("mark_start_frame");
 
   var items = document.getElementsByClassName('mover');
+  var itemsLength = items.length;
   var scrollTop = document.body.scrollTop;
   var phase;
   var i;
 
-  for (i = 0; i < items.length; i++) {
+  for (i = 0; i < itemsLength; i++) {
     phase = Math.sin((scrollTop / 1250) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
@@ -555,6 +577,7 @@ window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
+  'use strict';
   makeSlidingPizzas(200);
   appendPizzas();
   updatePositions();
